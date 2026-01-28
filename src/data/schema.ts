@@ -18,9 +18,38 @@ export const organization = {
 	url: siteUrl,
 	logo: `${siteUrl}/century-logo2.png`,
 	email: 'support@centurydigital.net',
+	phone: '+64277266282',
+	address: {
+		streetAddress: '503/20 Hanson Street',
+		addressLocality: 'Wellington',
+		addressRegion: 'Wellington',
+		postalCode: '6021',
+		addressCountry: 'NZ',
+	},
+	// We operate in the US market (states listed for clarity)
 	areaServed: 'US',
 	// optional: phone, address, sameAs, bookingUrl
 };
+
+// Key US states where annuities are commonly marketed/served (used for schema areaServed)
+export const usServiceStates = [
+	'Arizona',
+	'Florida',
+	'Texas',
+	'California',
+	'North Carolina',
+	'South Carolina',
+	'Georgia',
+	'Tennessee',
+	'Ohio',
+	'Pennsylvania',
+	'Illinois',
+	'Iowa',
+	'Michigan',
+	'Minnesota',
+	'Wisconsin',
+	'Colorado',
+];
 
 export const rating = {
 	ratingValue: '4.8',
@@ -72,11 +101,27 @@ export function buildOrganizationSchema() {
 		description: organization.description,
 		url: organization.url,
 		logo: organization.logo,
-		areaServed: organization.areaServed,
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			...usServiceStates.map((state) => ({
+				'@type': 'AdministrativeArea',
+				name: state,
+				containedInPlace: { '@type': 'Country', name: 'United States' },
+			})),
+		],
+		address: {
+			'@type': 'PostalAddress',
+			streetAddress: organization.address.streetAddress,
+			addressLocality: organization.address.addressLocality,
+			addressRegion: organization.address.addressRegion,
+			postalCode: organization.address.postalCode,
+			addressCountry: organization.address.addressCountry,
+		},
 		contactPoint: {
 			'@type': 'ContactPoint',
 			contactType: 'Sales',
 			email: organization.email,
+			telephone: organization.phone,
 			url: `${organization.url}/#contact`,
 		},
 		aggregateRating: {
@@ -128,7 +173,14 @@ export function buildServiceSchema() {
 		'@type': 'Service',
 		serviceType: 'Annuity Leads Provider',
 		provider: { '@id': `${organization.url}/#organization` },
-		areaServed: organization.areaServed,
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			...usServiceStates.map((state) => ({
+				'@type': 'AdministrativeArea',
+				name: state,
+				containedInPlace: { '@type': 'Country', name: 'United States' },
+			})),
+		],
 		hasOfferCatalog: {
 			'@type': 'OfferCatalog',
 			name: 'Century Digital Services',
