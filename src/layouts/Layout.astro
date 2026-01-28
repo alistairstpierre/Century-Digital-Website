@@ -11,18 +11,30 @@ interface Props {
 	description?: string;
 	canonicalURL?: string;
 	ogImage?: string;
+	pageName?: string;
+	keywords?: string;
+	noindex?: boolean;
 }
 
 const { 
 	title = 'Century Digital - Premium Annuity Lead Generation for Insurance Agents',
 	description = 'Get high-intent annuity leads that actually answer the phone. Stop chasing disconnected numbers. Start writing paper with qualified contract owners ready to protect their principal. 48% close rate, 41% lead-to-appointment rate.',
 	canonicalURL = Astro.url.href,
-	ogImage = '/og-image.jpg'
+	ogImage = '/og-image.jpg',
+	pageName,
+	keywords,
+	noindex = false
 } = Astro.props;
 
 const siteName = 'Century Digital';
 const siteURL = siteUrl;
-const schemaGraph = buildSchemaGraph();
+const defaultKeywords = 'annuity marketing, annuity pay per lead, annuity leads, annuity leads provider, insurance leads, annuity lead generation, FIA leads, high-intent annuity leads, exclusive annuity leads, independent producers, financial advisors';
+const finalKeywords = keywords || defaultKeywords;
+const schemaGraph = buildSchemaGraph(
+	canonicalURL, 
+	pageName || (canonicalURL === siteUrl || canonicalURL === `${siteUrl}/` ? 'Home' : title),
+	description
+);
 ---
 
 <!doctype html>
@@ -39,9 +51,10 @@ const schemaGraph = buildSchemaGraph();
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
-		<meta name="keywords" content="annuity leads, insurance leads, annuity lead generation, fixed index annuity leads, FIA leads, insurance agent leads, annuity sales leads, high-intent leads, qualified annuity leads, contract owners, independent producers, financial advisors" />
+		<meta name="keywords" content={finalKeywords} />
 		<meta name="author" content="Century Digital" />
-		<meta name="robots" content="index, follow" />
+		<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+		<meta name="theme-color" content="#1e3a8a" />
 		<meta name="language" content="English" />
 		<meta name="revisit-after" content="7 days" />
 		

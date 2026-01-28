@@ -14,7 +14,7 @@ export const siteUrl = 'https://centurydigital.net';
 
 export const organization = {
 	name: 'Century Digital',
-	description: 'Premium annuity lead generation for Independent Producers and Financial Advisors. High-intent leads that answer the phone. ISA team, sales coaching, exclusive annuity leads.',
+	description: 'Century Digital is an annuity leads provider offering annuity marketing and annuity pay per lead for Independent Producers and Financial Advisors. High-intent annuity leads that answer the phone. ISA team, sales coaching, exclusive leads.',
 	url: siteUrl,
 	logo: `${siteUrl}/century-logo2.png`,
 	email: 'support@centurydigital.net',
@@ -30,9 +30,11 @@ export const rating = {
 };
 
 export const services = [
+	'Annuity Marketing',
+	'Annuity Pay Per Lead',
+	'Annuity Leads',
 	'Social Media Advertising',
 	'Internal Sales Team (ISA)',
-	'Annuity Leads',
 	'Sales Coaching',
 ];
 
@@ -105,23 +107,142 @@ export function buildFAQPageSchema() {
 export function buildWebSiteSchema() {
 	return {
 		'@type': 'WebSite',
+		'@id': `${organization.url}/#website`,
 		name: organization.name,
 		url: organization.url,
 		description: organization.description,
 		publisher: { '@id': `${organization.url}/#organization` },
+		potentialAction: {
+			'@type': 'SearchAction',
+			target: {
+				'@type': 'EntryPoint',
+				urlTemplate: `${organization.url}/?q={search_term_string}`,
+			},
+			'query-input': 'required name=search_term_string',
+		},
 	};
 }
 
-export function buildSchemaGraph() {
+export function buildServiceSchema() {
+	return {
+		'@type': 'Service',
+		serviceType: 'Annuity Leads Provider',
+		provider: { '@id': `${organization.url}/#organization` },
+		areaServed: organization.areaServed,
+		hasOfferCatalog: {
+			'@type': 'OfferCatalog',
+			name: 'Century Digital Services',
+			itemListElement: services.map((service, index) => ({
+				'@type': 'Offer',
+				itemOffered: {
+					'@type': 'Service',
+					name: service,
+				},
+				position: index + 1,
+			})),
+		},
+	};
+}
+
+export function buildBreadcrumbSchema(currentPage: string, currentPageName: string) {
+	return {
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Home',
+				item: organization.url,
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: currentPageName,
+				item: `${organization.url}${currentPage}`,
+			},
+		],
+	};
+}
+
+export function buildWebPageSchema(
+	pageUrl: string,
+	pageName: string,
+	description: string,
+	lastModified?: string,
+	isArticle?: boolean
+) {
+	const baseSchema: Record<string, unknown> = {
+		'@type': isArticle ? 'Article' : 'WebPage',
+		'@id': `${pageUrl}#webpage`,
+		url: pageUrl,
+		headline: pageName,
+		description: description,
+		inLanguage: 'en-US',
+		isPartOf: { '@id': `${organization.url}/#website` },
+		about: { '@id': `${organization.url}/#organization` },
+		primaryImageOfPage: {
+			'@type': 'ImageObject',
+			url: organization.logo,
+		},
+		datePublished: '2026-01-27',
+		dateModified: lastModified || '2026-01-27',
+		breadcrumb: {
+			'@id': `${pageUrl}#breadcrumb`,
+		},
+		publisher: {
+			'@id': `${organization.url}/#organization`,
+		},
+	};
+
+	if (isArticle) {
+		baseSchema.author = {
+			'@id': `${organization.url}/#organization`,
+		};
+		baseSchema.mainEntityOfPage = {
+			'@type': 'WebPage',
+			'@id': pageUrl,
+		};
+	} else {
+		baseSchema.name = pageName;
+	}
+
+	return baseSchema;
+}
+
+export function buildSchemaGraph(pageUrl?: string, pageName?: string, pageDescription?: string) {
 	const organizationSchema = buildOrganizationSchema();
 	(organizationSchema as Record<string, unknown>)['@id'] = `${organization.url}/#organization`;
 
+	const graph: unknown[] = [
+		organizationSchema,
+		buildWebSiteSchema(),
+		buildServiceSchema(),
+	];
+
+	// Add FAQPage schema only for homepage
+	if (!pageUrl || pageUrl === organization.url || pageUrl === `${organization.url}/`) {
+		graph.push(buildFAQPageSchema());
+	}
+
+	// Add page-specific schema for other pages
+	if (pageUrl && pageName && pageDescription && pageUrl !== organization.url && pageUrl !== `${organization.url}/`) {
+		const isLegalPage = pageUrl.includes('privacy-policy') || pageUrl.includes('terms-of-use');
+		const webPageSchema = buildWebPageSchema(
+			pageUrl, 
+			pageName, 
+			pageDescription, 
+			'2026-01-27',
+			isLegalPage
+		);
+		graph.push(webPageSchema);
+		graph.push(buildBreadcrumbSchema(
+			pageUrl.replace(organization.url, ''),
+			pageName
+		));
+	}
+
 	return {
 		'@context': 'https://schema.org',
-		'@graph': [
-			organizationSchema,
-			buildWebSiteSchema(),
-			buildFAQPageSchema(),
-		],
+		'@graph': graph,
 	};
 }

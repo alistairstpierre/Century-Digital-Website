@@ -8,17 +8,21 @@ import Testimonials from '../components/Testimonials.astro';
 import Features from '../components/Features.astro';
 import About from '../components/About.astro';
 import FAQ from '../components/FAQ.astro';
+import ScriptForm from '../components/ScriptForm.astro';
 import Footer from '../components/Footer.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 
-const seoTitle = 'Century Digital - Premium Annuity Lead Generation for Insurance Agents';
-const seoDescription = 'Get high-intent annuity leads that actually answer the phone. 48% close rate, 41% lead-to-appointment rate. Stop chasing disconnected numbers. Start writing paper with qualified contract owners ready to protect their principal.';
+const seoTitle = 'Annuity Leads Provider | Annuity Marketing & Pay Per Lead | Century Digital';
+const seoDescription = 'Century Digital is your annuity leads provider. Annuity marketing and annuity pay per lead that delivers. Get high-intent annuity leads that answer the phone—48% close rate, 41% lead-to-appointment. Exclusive leads, ISA team, sales coaching.';
+const seoKeywords = 'annuity marketing, annuity pay per lead, annuity leads, annuity leads provider, annuity lead generation, high-intent annuity leads, exclusive annuity leads, FIA leads, insurance agent leads, independent producers, financial advisors, ISA team, sales coaching';
 ---
 
 <Layout 
 	title={seoTitle}
 	description={seoDescription}
 	canonicalURL={Astro.url.href}
+	pageName="Home"
+	keywords={seoKeywords}
 >
 	<Navigation />
 	<main>
@@ -27,6 +31,7 @@ const seoDescription = 'Get high-intent annuity leads that actually answer the p
 		<Features />
 		<About />
 		<FAQ />
+		<ScriptForm />
 	</main>
 	<Footer />
 	<ScrollReveal />

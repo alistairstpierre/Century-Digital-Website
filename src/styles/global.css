@@ -248,6 +248,21 @@
 	box-sizing: border-box;
 }
 
+/* Form box – explicit internal padding (avoids reset override) */
+.form-box,
+#script-request-form {
+	padding-top: 3rem;
+	padding-right: 3rem;
+	padding-bottom: 3rem;
+	padding-left: 3rem;
+	box-sizing: border-box;
+}
+
+/* Form element spacing - explicit margin to override global reset */
+#script-request-form > * + * {
+	margin-top: 0.25rem; /* 4px */
+}
+
 .section-inner--no-padding {
 	padding-top: 0;
 	padding-bottom: 0;
