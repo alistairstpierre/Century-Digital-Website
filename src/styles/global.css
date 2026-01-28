@@ -251,16 +251,16 @@
 /* Form box – explicit internal padding (avoids reset override) */
 .form-box,
 #script-request-form {
-	padding-top: 3rem;
-	padding-right: 3rem;
-	padding-bottom: 3rem;
-	padding-left: 3rem;
+	padding-top: 2.5rem;
+	padding-right: 2.5rem;
+	padding-bottom: 2.5rem;
+	padding-left: 2.5rem;
 	box-sizing: border-box;
 }
 
 /* Form element spacing - explicit margin to override global reset */
 #script-request-form > * + * {
-	margin-top: 0.25rem; /* 4px */
+	margin-top: 0.75rem; /* 12px - half of previous spacing */
 }
 
 .section-inner--no-padding {
