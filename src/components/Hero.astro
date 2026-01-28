@@ -1,0 +1,79 @@
+---
+// Hero section component for Century Digital
+// Main landing section with animated headline and CTA
+//
+// H1 headline options (strong but realistic; current = option 1):
+// 1. More Pick-Ups Means More Closes
+// 2. More Pick-Ups. More Closes. More Paper.
+// 3. When Leads Pick Up, Contracts Close
+// 4. More Pick-Ups = More Contracts Written
+// 5. High Pick-Up Rate. Higher Close Rate.
+// Reduced grid size for better performance
+const ROWS = 12;
+const COLS = 20;
+const flipCells = Array.from({ length: ROWS * COLS }, (_, i) => {
+	const row = Math.floor(i / COLS);
+	const col = i % COLS;
+	const seed = (row * 31 + col * 17) % 140;
+	const seed2 = (row * 13 + col * 37) % 80;
+	return { row, col, seed, seed2 };
+});
+---
+
+<section class="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden px-4 sm:px-6">
+		<!-- Vertical rolling gradient: white → light blue -->
+	<div class="absolute inset-0 hero-gradient-bg"></div>
+
+	<!-- Grid of flipping squares -->
+	<div
+		class="hero-flip-grid"
+		style={`--hero-rows: ${ROWS}; --hero-cols: ${COLS};`}
+	>
+		{flipCells.map(({ row, col, seed, seed2 }) => (
+			<div
+				class="hero-flip-cell"
+				style={`--row: ${row}; --col: ${col}; --seed: ${seed}; --seed2: ${seed2};`}
+			/>
+		))}
+	</div>
+
+	<div class="relative z-10 w-full section-inner hero-inner text-center flex flex-col items-center gap-4">
+		<h1 class="text-5xl md:text-7xl font-bold animate-fade-in-up">
+			<span class="gradient-text">More Pick-Ups Means More Closes</span>
+		</h1>
+		
+		<p class="text-xl md:text-2xl text-gray-700 animate-fade-in-up" style="animation-delay: 0.2s;">
+			Get <span class="text-[#1e40af] font-semibold">High-Intent Annuity Leads</span> That Actually Answer the Phone
+		</p>
+		
+		<p class="text-lg md:text-xl text-gray-600 animate-fade-in-up max-w-2xl self-center" style="animation-delay: 0.4s;">
+			Stop chasing leads that never convert. Start writing paper with qualified contract owners ready to protect their principal.
+		</p>
+
+		<div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay: 0.6s;">
+			<a href="#contact" class="btn-cta w-full sm:w-auto min-w-[220px] bg-gradient-to-r from-[#1e40af] via-[#1e3a8a] to-[#1e293b] rounded-2xl text-xl font-semibold hover:from-[#1e3a8a] hover:via-[#1e293b] hover:to-[#0f172a] transition-all transform hover:scale-105 animate-pulse-glow text-center inline-flex items-center justify-center shadow-lg shadow-[#2563eb]/30 text-white">
+				Book a Call →
+			</a>
+			<a href="#about" class="btn-cta w-full sm:w-auto min-w-[220px] border-2 border-[#1e40af] rounded-2xl text-xl font-semibold hover:bg-[#eff6ff] transition-all text-[#1e3a8a] text-center inline-flex items-center justify-center">
+				Learn More
+			</a>
+		</div>
+
+		<!-- Stats -->
+		<div class="w-full grid grid-cols-1 md:grid-cols-3 gap-10 animate-fade-in-up" style="animation-delay: 0.8s;">
+			<div class="hero-stat-box reveal bg-white/80 backdrop-blur-sm rounded-xl border border-[#93c5fd] shadow-md">
+				<div class="text-5xl font-bold gradient-text mb-3">48%</div>
+				<div class="text-gray-600 text-base">Avg Close Rate</div>
+			</div>
+			<div class="hero-stat-box reveal bg-white/80 backdrop-blur-sm rounded-xl border border-[#93c5fd] shadow-md">
+				<div class="text-5xl font-bold gradient-text mb-3">41%</div>
+				<div class="text-gray-600 text-base">Lead to Appt Rate</div>
+			</div>
+			<div class="hero-stat-box reveal bg-white/80 backdrop-blur-sm rounded-xl border border-[#93c5fd] shadow-md">
+				<div class="text-5xl font-bold gradient-text mb-3">900+</div>
+				<div class="text-gray-600 text-base">Producers Served</div>
+			</div>
+		</div>
+	</div>
+</section>
+

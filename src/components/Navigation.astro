@@ -1,0 +1,59 @@
+---
+// Navigation component for Century Digital
+// Provides the main site navigation with mobile menu support
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#93c5fd] shadow-sm px-4 sm:px-6">
+	<div class="section-inner section-inner--no-padding relative">
+		<div class="flex items-center justify-between h-20">
+			<a href="/" class="flex items-center gap-3">
+				<img 
+					src="/century-logo2.png" 
+					alt="Century Digital" 
+					class="h-10 w-auto" 
+					loading="eager"
+					fetchpriority="high"
+					decoding="async"
+					width="120"
+					height="40"
+				/>
+				<span class="text-2xl font-bold gradient-text">Century Digital</span>
+			</a>
+			<div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+			<a href="#services" class="text-gray-700 hover:text-[#1e40af] transition-colors">Services</a>
+			<a href="#testimonials" class="text-gray-700 hover:text-[#1e40af] transition-colors">Testimonials</a>
+			<a href="#about" class="text-gray-700 hover:text-[#1e40af] transition-colors">About</a>
+			<a href="#faq" class="text-gray-700 hover:text-[#1e40af] transition-colors">FAQ</a>
+			</div>
+			<a href="#contact" class="btn-cta hidden md:inline-flex md:items-center md:justify-center bg-gradient-to-r from-[#1e40af] via-[#1e3a8a] to-[#1e293b] rounded-2xl text-lg font-semibold hover:from-[#1e3a8a] hover:via-[#1e293b] hover:to-[#0f172a] transition-all animate-pulse-glow shadow-lg shadow-[#2563eb]/30 text-white">
+				Book a Call
+			</a>
+
+			<!-- Mobile menu button -->
+			<button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-[#1e40af]">
+				<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<!-- Mobile Menu -->
+	<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#93c5fd] shadow-lg">
+		<div class="px-4 pt-5 pb-8 space-y-4">
+			<a href="#services" class="block px-4 py-3 text-gray-700 hover:text-[#1e40af]">Services</a>
+			<a href="#testimonials" class="block px-4 py-3 text-gray-700 hover:text-[#1e40af]">Testimonials</a>
+			<a href="#about" class="block px-4 py-3 text-gray-700 hover:text-[#1e40af]">About</a>
+			<a href="#faq" class="block px-4 py-3 text-gray-700 hover:text-[#1e40af]">FAQ</a>
+			<a href="#contact" class="btn-cta block text-center py-5 rounded-2xl text-xl font-semibold bg-[#1e40af] text-white">Book a Call</a>
+		</div>
+	</div>
+</nav>
+
+<script>
+	const menuButton = document.getElementById('mobile-menu-button');
+	const mobileMenu = document.getElementById('mobile-menu');
+	if (menuButton && mobileMenu) {
+		menuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+	}
+</script>

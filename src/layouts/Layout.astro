@@ -1,0 +1,117 @@
+---
+// Base layout component for Century Digital website
+// This layout provides the HTML structure, global styles, and metadata
+// All pages should use this layout as their base
+
+import '../styles/global.css';
+import { buildSchemaGraph, siteUrl } from '../data/schema';
+
+interface Props {
+	title?: string;
+	description?: string;
+	canonicalURL?: string;
+	ogImage?: string;
+}
+
+const { 
+	title = 'Century Digital - Premium Annuity Lead Generation for Insurance Agents',
+	description = 'Get high-intent annuity leads that actually answer the phone. Stop chasing disconnected numbers. Start writing paper with qualified contract owners ready to protect their principal. 48% close rate, 41% lead-to-appointment rate.',
+	canonicalURL = Astro.url.href,
+	ogImage = '/og-image.jpg'
+} = Astro.props;
+
+const siteName = 'Century Digital';
+const siteURL = siteUrl;
+const schemaGraph = buildSchemaGraph();
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- Performance: Resource Hints -->
+		<link rel="preload" href="/century-logo2.png" as="image" fetchpriority="high" />
+		<link rel="dns-prefetch" href="https://centurydigital.net" />
+		
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content="annuity leads, insurance leads, annuity lead generation, fixed index annuity leads, FIA leads, insurance agent leads, annuity sales leads, high-intent leads, qualified annuity leads, contract owners, independent producers, financial advisors" />
+		<meta name="author" content="Century Digital" />
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="English" />
+		<meta name="revisit-after" content="7 days" />
+		
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalURL} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(ogImage, siteURL).toString()} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content="en_US" />
+		
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalURL} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(ogImage, siteURL).toString()} />
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/favi.png" />
+		<link rel="apple-touch-icon" href="/favi.png" />
+		
+		<!-- Generator -->
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Structured Data (JSON-LD): Organization, WebSite, FAQPage -->
+		<script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+	</head>
+	<body class="bg-white text-gray-900 antialiased">
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		scroll-behavior: smooth;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	body {
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		overflow-x: hidden;
+		font-display: swap;
+		text-rendering: optimizeSpeed;
+	}
+
+	main {
+		width: 100%;
+	}
+	
+	/* Performance: Use content-visibility for off-screen sections */
+	section {
+		content-visibility: auto;
+		contain-intrinsic-size: auto 500px;
+	}
+	
+	/* Optimize images */
+	img {
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: crisp-edges;
+	}
+</style>

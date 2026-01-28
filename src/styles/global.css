@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+/* Century Digital - Global Styles */
+/* Light theme with navy blue accents and modern animations */
+
+:root {
+	/* Navy Color Palette - Primary brand colors */
+	--navy-900: #0f172a;  /* Darkest navy (for dark backgrounds) */
+	--navy-800: #1e293b;  /* Very dark navy */
+	--navy-700: #1e3a8a;  /* Dark navy - primary brand color */
+	--navy-600: #1e40af;  /* Medium-dark navy - buttons, links */
+	--navy-500: #2563eb;  /* Medium navy - hover states */
+	--navy-400: #3b82f6;  /* Light navy - accents */
+	--navy-300: #60a5fa;  /* Lighter navy - borders */
+	--navy-200: #93c5fd;  /* Very light navy - light borders */
+	--navy-100: #dbeafe;  /* Lightest navy - backgrounds */
+	--navy-50: #eff6ff;  /* Subtle navy tint - very light backgrounds */
+	
+	/* Legacy support (mapped to new palette) */
+	--navy-primary: var(--navy-700);
+	--navy-secondary: var(--navy-500);
+	--navy-light: var(--navy-400);
+	--navy-dark: var(--navy-900);
+	--navy-accent: var(--navy-600);
+	
+	--white: #ffffff;
+	--gray-light: #f3f4f6;
+	--gray-dark: #6b7280;
+}
+
+/* Removed unused @theme variables - using direct hex values in components */
+
+/* Smooth animations */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes pulse-glow {
+	0%, 100% {
+		box-shadow: 0 0 20px rgba(30, 58, 138, 0.25);
+	}
+	50% {
+		box-shadow: 0 0 40px rgba(30, 58, 138, 0.4);
+	}
+}
+
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Hero: vertical rolling gradient (black → dark navy), mostly dark */
+@keyframes hero-gradient-vertical {
+	0% {
+		background-position: 0% 0%;
+	}
+	100% {
+		background-position: 0% 200%;
+	}
+}
+
+.hero-gradient-bg {
+	background: linear-gradient(
+		180deg,
+		#ffffff 0%,
+		#f8fafc 15%,
+		#f1f5f9 30%,
+		#e8f2ff 45%,
+		#e0efff 60%,
+		#f1f5f9 75%,
+		#ffffff 100%
+	);
+	background-size: 100% 200%;
+	animation: hero-gradient-vertical 12s linear infinite;
+}
+
+/* Hero: grid of flipping squares (top-to-bottom flip, white → navy → white) */
+.hero-flip-grid {
+	display: grid;
+	grid-template-columns: repeat(var(--hero-cols, 20), 1fr);
+	grid-template-rows: repeat(var(--hero-rows, 12), 1fr);
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	perspective: 800px;
+	gap: 1px;
+	padding: 1px;
+	box-sizing: border-box;
+	contain: strict;
+	transform: translateZ(0);
+}
+
+.hero-flip-cell {
+	position: relative;
+	transform-style: preserve-3d;
+	transform-origin: top center;
+	transform: translateZ(0);
+	contain: strict;
+	animation: hero-flip-wave 5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+	animation-duration: calc(5s + (var(--seed2, 0) * 0.012s));
+	animation-delay: calc(var(--seed, 0) * 0.04s);
+	/* Only set will-change when animating */
+	will-change: transform;
+}
+
+.hero-flip-cell::before,
+.hero-flip-cell::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	backface-visibility: hidden;
+	transform-origin: top center;
+	transform: translateZ(0);
+}
+
+.hero-flip-cell::before {
+	background: rgba(255, 255, 255, 0.9);
+}
+
+.hero-flip-cell::after {
+	background: rgba(30, 58, 138, 0.3);
+	transform: rotateX(180deg);
+}
+
+@keyframes hero-flip-wave {
+	0% {
+		transform: rotateX(0deg);
+	}
+	10% {
+		transform: rotateX(180deg);
+	}
+	30% {
+		transform: rotateX(180deg);
+	}
+	40% {
+		transform: rotateX(0deg);
+	}
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+
+.animate-fade-in-up {
+	animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-fade-in {
+	animation: fadeIn 1s ease-out;
+}
+
+.animate-slide-in-left {
+	animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+	animation: slideInRight 0.8s ease-out;
+}
+
+.animate-pulse-glow {
+	animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.gradient-text {
+	background: linear-gradient(135deg, var(--navy-700) 0%, var(--navy-500) 50%, #ffffff 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	/* Very subtle navy text-shadow outline for readability on white background */
+	text-shadow: 
+		0 0 0.5px rgba(30, 58, 138, 0.4),
+		0 0 1px rgba(30, 58, 138, 0.2);
+	font-weight: 600; /* Slightly less bold than font-bold (700) */
+}
+
+.gradient-bg {
+	background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(30, 58, 138, 0.5), rgba(37, 99, 235, 0.5));
+	background-size: 200% 200%;
+	animation: gradient-shift 5s ease infinite;
+}
+
+/* Scroll reveal animations - optimized for performance */
+.reveal {
+	opacity: 0;
+	transform: translateY(50px);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	will-change: opacity, transform;
+}
+
+.reveal.active {
+	opacity: 1;
+	transform: translateY(0);
+	will-change: auto;
+}
+
+/* Section layout: full-width section, centered 1200px container */
+.section-inner {
+	width: 100%;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 4em;
+	padding-bottom: 4em;
+	box-sizing: border-box;
+}
+
+.section-inner--no-padding {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+/* Hero section: +2em vertical padding (6em total each side) */
+.section-inner.hero-inner {
+	padding-top: 6em;
+	padding-bottom: 6em;
+}
+
+/* Hero stats boxes – explicit internal padding (avoids reset override) */
+.hero-stat-box {
+	padding-top: 1.25rem;
+	padding-right: 1.5rem;
+	padding-bottom: 1.25rem;
+	padding-left: 1.5rem;
+	box-sizing: border-box;
+}
+
+/* Testimonial boxes – explicit internal padding */
+.testimonial-box {
+	padding-top: 1.5rem;
+	padding-right: 1.5rem;
+	padding-bottom: 1.5rem;
+	padding-left: 1.5rem;
+	box-sizing: border-box;
+}
+
+/* Feature boxes (4 Reasons) – explicit internal padding */
+.feature-box {
+	padding-top: 1.75rem;
+	padding-right: 1.75rem;
+	padding-bottom: 1.75rem;
+	padding-left: 1.75rem;
+	box-sizing: border-box;
+}
+
+/* About section stat boxes (left side) – explicit internal padding */
+.about-stat-box {
+	padding-top: 0.875rem;
+	padding-right: 1.5rem;
+	padding-bottom: 0.875rem;
+	padding-left: 1.5rem;
+	box-sizing: border-box;
+}
+
+/* About section "Why We're Different" box (right side) – explicit internal padding */
+.about-different-box {
+	padding-top: 1.75rem;
+	padding-right: 1.75rem;
+	padding-bottom: 1.75rem;
+	padding-left: 1.75rem;
+	box-sizing: border-box;
+}
+
+/* FAQ/Q&A boxes – explicit internal padding */
+.faq-box {
+	padding-top: 1.5rem;
+	padding-right: 1.5rem;
+	padding-bottom: 1.5rem;
+	padding-left: 1.5rem;
+	box-sizing: border-box;
+}
+
+/* Primary CTA buttons - consistent min size and padding */
+.btn-cta {
+	min-height: 56px;
+	padding: 1rem 2rem;
+	font-size: 1.125rem;
+	line-height: 1.5;
+}

@@ -1,0 +1,37 @@
+---
+// Shared scroll reveal script for all components
+// Handles the reveal animation on scroll
+---
+
+<script is:inline>
+	(function() {
+		'use strict';
+		if (typeof window === 'undefined') return;
+		
+		const reveals = document.querySelectorAll('.reveal');
+		if (reveals.length === 0) return;
+		
+		// Use IntersectionObserver for better performance
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('active');
+					observer.unobserve(entry.target);
+				}
+			});
+		}, {
+			rootMargin: '150px',
+			threshold: 0.01
+		});
+		
+		reveals.forEach(el => {
+			// Check if already visible on load
+			const rect = el.getBoundingClientRect();
+			if (rect.top < window.innerHeight + 150) {
+				el.classList.add('active');
+			} else {
+				observer.observe(el);
+			}
+		});
+	})();
+</script>
