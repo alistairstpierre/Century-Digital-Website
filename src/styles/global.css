@@ -116,7 +116,8 @@
 		#ffffff 100%
 	);
 	background-size: 100% 200%;
-	animation: hero-gradient-vertical 12s linear infinite;
+	animation: hero-gradient-vertical 18s linear infinite;
+	opacity: 0.85;
 }
 
 /* Hero: grid of flipping squares (top-to-bottom flip, white → navy → white) */
@@ -141,9 +142,9 @@
 	transform-origin: top center;
 	transform: translateZ(0);
 	contain: strict;
-	animation: hero-flip-wave 5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
-	animation-duration: calc(5s + (var(--seed2, 0) * 0.012s));
-	animation-delay: calc(var(--seed, 0) * 0.04s);
+	animation: hero-flip-wave 7s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+	animation-duration: calc(7s + (var(--seed2, 0) * 0.018s));
+	animation-delay: calc(var(--seed, 0) * 0.05s);
 	/* Only set will-change when animating */
 	will-change: transform;
 }
@@ -159,11 +160,11 @@
 }
 
 .hero-flip-cell::before {
-	background: rgba(255, 255, 255, 0.9);
+	background: rgba(255, 255, 255, 0.82);
 }
 
 .hero-flip-cell::after {
-	background: rgba(30, 58, 138, 0.3);
+	background: rgba(30, 58, 138, 0.24);
 	transform: rotateX(180deg);
 }
 
