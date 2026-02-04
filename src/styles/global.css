@@ -269,6 +269,11 @@
 	padding-bottom: 0;
 }
 
+/* Legal pages: paragraph gaps (overrides global reset) */
+.legal-prose section.space-y-6 > * + * {
+	margin-top: 1.5rem;
+}
+
 /* Hero section: +2em vertical padding (6em total each side) */
 .section-inner.hero-inner {
 	padding-top: 6em;
