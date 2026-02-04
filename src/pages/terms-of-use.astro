@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 
+const effectiveDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 const pageTitle = 'Terms of Use - Century Digital | Service Terms & SMS Messaging Terms';
 const pageDescription = 'Century Digital Terms of Use. Read our terms and conditions for annuity lead generation services. Includes SMS/text messaging terms, A2P 10DLC compliance, user responsibilities, and service agreements.';
 const pageKeywords = 'terms of use, terms and conditions, service agreement, SMS terms, A2P compliance, Twilio terms, user agreement, Century Digital terms';
@@ -23,6 +24,7 @@ const pageUrl = Astro.url.href;
 		<div class="section-inner flex flex-col gap-4" style="padding-top: 0;">
 			<div class="text-center flex flex-col items-center gap-4 mb-8">
 				<h1 class="text-4xl md:text-5xl font-bold text-gray-900">Terms of Use</h1>
+				<p class="text-xl text-gray-600">Effective Date: {effectiveDate}</p>
 			</div>
 
 			<article class="w-full max-w-4xl mx-auto legal-prose" itemscope itemtype="https://schema.org/Article">

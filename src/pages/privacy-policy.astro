@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 
+const effectiveDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 const pageTitle = 'Privacy Policy - Century Digital | Data Protection & SMS Compliance';
 const pageDescription = 'Century Digital Privacy Policy. Learn how we collect, use, and protect your information. Compliant with TCPA and Twilio A2P 10DLC requirements. Includes SMS/text messaging consent, opt-out instructions, and data security practices.';
 const pageKeywords = 'privacy policy, data protection, SMS compliance, TCPA, A2P 10DLC, Twilio compliance, text messaging consent, data privacy, information security, Century Digital privacy';
@@ -23,6 +24,7 @@ const pageUrl = Astro.url.href;
 		<div class="section-inner flex flex-col gap-4" style="padding-top: 0;">
 			<div class="text-center flex flex-col items-center gap-4 mb-8">
 				<h1 class="text-4xl md:text-5xl font-bold text-gray-900">Privacy Policy</h1>
+				<p class="text-xl text-gray-600">Effective Date: {effectiveDate}</p>
 			</div>
 
 			<article class="w-full max-w-4xl mx-auto legal-prose" itemscope itemtype="https://schema.org/Article">
