@@ -142,6 +142,34 @@ If `PUBLIC_FB_PIXEL_ID` is not set, no pixel code is loaded. Clicks on any "Book
 
 **Vercel / “safe to share publicly”:** The Pixel ID is designed to be public (it appears in your site’s front-end code). It is not a secret; it only identifies which ad account receives the events. Safe to confirm as public when adding the env var.
 
+### Conversions API (CAPI)
+
+A **server-side Lead** event is sent when someone lands on the **thank-you page** (e.g. after booking a call), so Meta gets the event even if the browser pixel is blocked.
+
+1. **Generate a CAPI access token:** Events Manager → your Pixel → **Settings** → **Conversions API** → **Generate access token**. Copy the token.
+2. **Add to `.env`** (do **not** use `PUBLIC_`; keep it secret): `META_CAPI_ACCESS_TOKEN=your_token_here`
+3. **Deploy:** Add `META_CAPI_ACCESS_TOKEN` to your host’s environment variables as a secret.
+
+If the token is not set, the thank-you page still works; only the browser pixel runs. The API route `/api/track-lead` is called once per session when the thank-you page loads.
+
+**Dataset Quality API:** When setting up CAPI, Meta may offer the "Dataset Quality API". You can **set up CAPI without it**. The Dataset Quality API is optional and used to pull quality metrics programmatically (e.g. for dashboards or many pixels). For a single pixel, event match quality and stats are visible in Events Manager; the extra API is only needed if you want automated quality reporting at scale. Skip it for now.
+
+### Testing the pixel
+
+1. **Confirm the pixel is on the page**  
+   Open your live site (e.g. `https://yoursite.vercel.app`). Right-click → **View Page Source** (or Ctrl+U). Search for your **Pixel ID** (the number in `PUBLIC_FB_PIXEL_ID`). If you see it in a script (e.g. `fbq('init', '123456789')`), the pixel is loading. If not, the env var is missing or you need to redeploy after adding it in Vercel.
+
+2. **See events in Meta Test Events**  
+   - Go to [Meta Events Manager](https://business.facebook.com/events_manager) → select your **Pixel**.  
+   - Click **Test events** in the left menu (or your Pixel → Test events tab).  
+   - Under "Test website events", enter your **exact site URL** (e.g. `https://century-digital-website.vercel.app`).  
+   - Click **Open website** to open it in a new tab.  
+   - Keep the Test events tab open; events may take a few seconds. You should see **PageView** when the page loads.  
+   - In the site tab, click any **Book a Call** button. In Test events you should see a **Lead** event.
+
+3. **If nothing appears**  
+   Disable ad blockers or tracking protection for your site, or try in a different browser. Use the same browser where you're logged into the Meta account that owns the pixel.
+
 ## Deployment
 
 Build the site for production:
@@ -152,7 +180,7 @@ npm run build
 
 The `dist/` folder contains the production-ready site that can be deployed to any static hosting service (Netlify, Vercel, GitHub Pages, etc.).
 
-**Important:** Make sure to add your environment variables (`RESEND_API_KEY`, `EMAIL_RECIPIENT`, `EMAIL_FROM`) to your hosting platform's environment variable settings.
+**Important:** Add these environment variables on your host: `RESEND_API_KEY`, `EMAIL_RECIPIENT`, `EMAIL_FROM`, `PUBLIC_FB_PIXEL_ID`, and (optional) `META_CAPI_ACCESS_TOKEN` for Conversions API.
 
 ## License
 

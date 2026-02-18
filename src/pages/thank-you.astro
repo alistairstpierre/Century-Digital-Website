@@ -98,4 +98,23 @@ const testimonials = [
 		</div>
 	</main>
 	<Footer />
+
+	<!-- Conversions API: send Lead event when thank-you page loads (once per session) -->
+	<script is:inline>
+		(function() {
+			if (typeof sessionStorage === 'undefined') return;
+			var key = 'capi_lead_sent';
+			if (sessionStorage.getItem(key)) return;
+			sessionStorage.setItem(key, '1');
+			var eventId = 'capi-' + Date.now() + '-' + Math.random().toString(36).slice(2, 11);
+			fetch('/api/track-lead', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					eventID: eventId,
+					eventSourceUrl: typeof location !== 'undefined' ? location.href : ''
+				})
+			}).catch(function() {});
+		})();
+	</script>
 </Layout>
