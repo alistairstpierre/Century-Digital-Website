@@ -26,13 +26,14 @@ Built with [Astro](https://astro.build), featuring a dark navy blue and black th
 │   │   ├── index.astro         # Main landing page
 │   │   ├── privacy-policy.astro # Privacy Policy page
 │   │   ├── terms-of-use.astro  # Terms of Use page
-│   │   └── api/                # API endpoints
-│   │       └── submit-form.ts  # Form submission handler (sends emails)
+│   │   └── api/                # API endpoints (deployed as serverless on Vercel)
+│   │       ├── submit-form.ts  # Form submission handler (sends emails)
+│   │       └── track-lead.ts   # Meta CAPI server-side Lead (thank-you page)
 │   ├── components/         # Reusable Astro components
 │   │   ├── ScriptForm.astro    # Script request form with SMS compliance
 │   └── styles/             # Global styles
 │       └── global.css           # Tailwind CSS and custom animations
-├── astro.config.mjs        # Astro configuration
+├── astro.config.mjs        # Astro config (Vercel adapter for API serverless routes)
 ├── package.json            # Dependencies and scripts
 └── tsconfig.json           # TypeScript configuration
 ```
@@ -178,7 +179,7 @@ Build the site for production:
 npm run build
 ```
 
-The `dist/` folder contains the production-ready site that can be deployed to any static hosting service (Netlify, Vercel, GitHub Pages, etc.).
+The `dist/` folder contains the production-ready site. **Vercel:** The project uses `@astrojs/vercel` so that `/api/submit-form` and `/api/track-lead` are deployed as serverless functions; pages stay static. Deploy via Vercel’s GitHub integration or `vercel deploy`.
 
 **Important:** Add these environment variables on your host: `RESEND_API_KEY`, `EMAIL_RECIPIENT`, `EMAIL_FROM`, `PUBLIC_FB_PIXEL_ID`, and (optional) `META_CAPI_ACCESS_TOKEN` for Conversions API.
 

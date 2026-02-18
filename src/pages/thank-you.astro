@@ -116,7 +116,10 @@ const testimonials = [
 					eventSourceUrl: typeof location !== 'undefined' ? location.href : ''
 				})
 			}).then(function(r) {
-				if (r.status !== 200) return r.json().then(function(d) { console.warn('CAPI track-lead:', r.status, d); });
+				if (r.status === 200) return;
+				r.text().then(function(t) {
+					try { var d = JSON.parse(t); console.warn('CAPI track-lead:', r.status, d); } catch (err) { console.warn('CAPI track-lead:', r.status, t.slice(0, 200)); }
+				}).catch(function() { console.warn('CAPI track-lead:', r.status); });
 			}).catch(function(e) { console.warn('CAPI track-lead failed:', e); });
 		})();
 	</script>
