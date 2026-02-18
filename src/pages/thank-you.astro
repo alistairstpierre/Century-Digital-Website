@@ -1,0 +1,101 @@
+---
+// Thank you page shown after booking a call (e.g. redirect from Lead Connector).
+// Embeds the walkthrough Loom and social proof via testimonials.
+// Uses logo-only header (no nav) linking back to home.
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = 'Thank You for Booking | Century Digital';
+const pageDescription = 'Thanks for booking a call with Century Digital. Watch this short video to see how we get producers consistent $100K+ annuity opportunities.';
+const pageUrl = Astro.url.href;
+
+const testimonials = [
+	{ quote: "Closed a $150K deal, nobody commissions, so around 5.7%. That's roughly $7,500 to $10,000 from one deal alone. And they just get bigger and bigger.", author: 'Michael, Independent Producer' },
+	{ quote: "$200K deal. That's $10K to $14K in commission. The prospects have the assets and they're ready to have the conversation. Makes all the difference.", author: 'Dwayne, Producer' },
+	{ quote: "Wrapped up an $800K deal. $40K to $56K in commissions. Absolutely monster. When the prospects are qualified and have rollover-ready assets, the opportunities are real.", author: 'Tom, Producer' },
+	{ quote: "In first two leads, booked appointments and both were fully intent on buying. With minimal effort, they both instantly approved and made significant purchases. The suitability process was smooth.", author: 'Brent Lucas, Wealth Manager' },
+	{ quote: "Easiest appointments I've ever run. They're asking about FIAs before I even pitch them. When they've got the assets and they're in the retirement window, it's a different game.", author: 'Mike H., Retirement Income Specialist' },
+	{ quote: "Just took an application on my first appointment. The prospect was pre-qualified and ready to roll over their 401(k). No chasing. They had the assets and were ready to move.", author: 'Todd S., Financial Advisor' },
+	{ quote: "High intent is there. Three booked appointments, all three picked up, all three got closed. Can't remember the exact AP, but it's somewhere around $10k per contract.", author: 'Mike H., MDRT Qualifier' },
+	{ quote: "Just closed my first deal with Century Digital. $12,000 APY. The contract owner had twins, so I'm writing two more policies. These leads actually want to protect their principal.", author: 'Doug N., Independent Producer' },
+	{ quote: "Whatever magic you're cooking these leads with, it's working. They're asking about FIAs before I even pitch them.", author: 'Mike H., Retirement Income Specialist' },
+	{ quote: "I had an unhealthy client who got declined by the carrier. Already wrote his daughter and am now writing IULs on his son and granddaughter. $4kish APV. FIAs sell themselves when the lead quality is this high.", author: 'Xander, Independent Agent' },
+	{ quote: "Everything has been so easy. Just took an application on my first appointment! The contract owner was pre-qualified and ready to roll over their 401(k).", author: 'Todd S., Financial Advisor' },
+	{ quote: "The leads are pre-qualified and understand their situation. We don't send you leads that will get kicked back by compliance. You can focus on writing paper.", author: 'Producer' },
+];
+---
+
+<Layout
+	title={pageTitle}
+	description={pageDescription}
+	canonicalURL={pageUrl}
+	pageName="Thank You"
+	noindex={true}
+>
+	<!-- Logo only: centered, links to home -->
+	<header class="w-full bg-white border-b border-[#93c5fd] py-6 px-4 flex justify-center items-center">
+		<a href="/" class="flex items-center gap-3">
+			<img
+				src="/century-logo2.png"
+				alt="Century Digital"
+				class="h-10 w-auto"
+				loading="eager"
+				width="120"
+				height="40"
+			/>
+			<span class="text-2xl font-bold gradient-text">Century Digital</span>
+		</a>
+	</header>
+	<main class="w-full bg-white px-4 sm:px-6 py-8">
+		<div class="section-inner flex flex-col gap-12 items-center">
+			<!-- Page header -->
+			<header class="text-center flex flex-col items-center gap-4 w-full max-w-3xl">
+				<h1 class="text-4xl md:text-5xl font-bold text-gray-900">
+					How We Get You $100K+ Annuity Opportunities
+				</h1>
+				<p class="text-xl text-gray-600 max-w-2xl">
+					Watch this short video to see how it works. We'll be in touch before your call.
+				</p>
+			</header>
+
+			<!-- Loom embed (centered) -->
+			<div class="w-full max-w-4xl mx-auto">
+				<div class="w-full max-w-4xl rounded-xl overflow-hidden border border-[#93c5fd] shadow-lg" style="position: relative; padding-bottom: 87.167%; height: 0;">
+					<iframe
+						src="https://www.loom.com/embed/22e1a322d917407fac79519838c1beec"
+						frameborder="0"
+						allowfullscreen
+						style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+						title="Century Digital walkthrough"
+					/>
+				</div>
+			</div>
+
+			<!-- Testimonials -->
+			<section class="w-full max-w-6xl">
+				<div class="text-center flex flex-col items-center gap-4 mb-12">
+					<h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+						Producers Like You Are Already Winning
+					</h2>
+					<p class="text-lg text-gray-600 max-w-2xl">
+						Here's the kind of paper they're writing with the same leads we're sending.
+					</p>
+				</div>
+				<div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{testimonials.map(({ quote, author }) => (
+						<div class="testimonial-box bg-gray-50 rounded-xl border border-[#93c5fd] hover:border-[#3b82f6] transition-all shadow-sm">
+							<div class="flex items-center mb-6">
+								<div class="text-yellow-500 text-xl">★★★★★</div>
+							</div>
+							<p class="text-gray-700 mb-6 italic leading-relaxed">
+								"{quote}"
+							</p>
+							<div class="text-[#1e40af] font-semibold text-base">{author}</div>
+						</div>
+					))}
+				</div>
+			</section>
+		</div>
+	</main>
+	<Footer />
+</Layout>
