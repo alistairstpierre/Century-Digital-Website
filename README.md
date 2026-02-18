@@ -93,6 +93,7 @@ npm run dev
 - ✅ Fast performance with Astro's static site generation
 - ✅ Contact form with email notifications (via Resend)
 - ✅ Twilio A2P 10DLC compliant SMS consent forms
+- ✅ Facebook Pixel (page views + Book a Call click tracking via `PUBLIC_FB_PIXEL_ID`)
 
 ### Schema / Structured Data
 
@@ -125,6 +126,21 @@ The contact form sends submissions to `support@centurydigital.net` via Resend. T
    - The API endpoint at `/api/submit-form` will automatically use these variables
 
 **Note:** The form will work in development, but emails will only be sent when `RESEND_API_KEY` is configured.
+
+## Facebook Pixel
+
+The site can track **page views** and **clicks on the "Book a Call"** button for Facebook/Meta Ads.
+
+1. **Get your Pixel ID** from [Meta Events Manager](https://business.facebook.com/events_manager).
+2. **Add to `.env`** (use the `PUBLIC_` prefix so it’s available in the browser):
+   ```
+   PUBLIC_FB_PIXEL_ID=your_pixel_id_here
+   ```
+3. **Deploy:** Add `PUBLIC_FB_PIXEL_ID` to your hosting platform’s environment variables.
+
+If `PUBLIC_FB_PIXEL_ID` is not set, no pixel code is loaded. Clicks on any "Book a Call" link fire a **Lead** event for conversion tracking.
+
+**Vercel / “safe to share publicly”:** The Pixel ID is designed to be public (it appears in your site’s front-end code). It is not a secret; it only identifies which ad account receives the events. Safe to confirm as public when adding the env var.
 
 ## Deployment
 
