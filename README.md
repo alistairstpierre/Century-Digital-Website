@@ -33,7 +33,7 @@ Built with [Astro](https://astro.build), featuring a dark navy blue and black th
 │   │   ├── ScriptForm.astro    # Script request form with SMS compliance
 │   └── styles/             # Global styles
 │       └── global.css           # Tailwind CSS and custom animations
-├── astro.config.mjs        # Astro config (Vercel adapter for API serverless routes)
+├── astro.config.mjs        # Astro config (Vercel adapter, output: server for API routes)
 ├── package.json            # Dependencies and scripts
 └── tsconfig.json           # TypeScript configuration
 ```
@@ -179,7 +179,7 @@ Build the site for production:
 npm run build
 ```
 
-The `dist/` folder contains the production-ready site. **Vercel:** The project uses `@astrojs/vercel` so that `/api/submit-form` and `/api/track-lead` are deployed as serverless functions; pages stay static. Deploy via Vercel’s GitHub integration or `vercel deploy`.
+The `dist/` folder contains the production-ready site. **Vercel:** The project uses `@astrojs/vercel` with `output: 'server'` so that `/api/submit-form` and `/api/track-lead` are deployed as serverless functions. Deploy via Vercel’s GitHub integration or `vercel deploy`.
 
 **Important:** Add these environment variables on your host: `RESEND_API_KEY`, `EMAIL_RECIPIENT`, `EMAIL_FROM`, `PUBLIC_FB_PIXEL_ID`, and (optional) `META_CAPI_ACCESS_TOKEN` for Conversions API.
 
