@@ -53,11 +53,12 @@ export const POST: APIRoute = async ({ request }) => {
 			body: JSON.stringify({ data: [payload] }),
 		});
 
-		const data = await res.json().catch(() => ({}));
+		const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
 		if (!res.ok) {
 			console.error('Meta CAPI error:', res.status, data);
+			const message = data?.error?.message ?? (data?.error as string) ?? 'Meta API error';
 			return new Response(
-				JSON.stringify({ success: false, error: 'Meta API error' }),
+				JSON.stringify({ success: false, error: 'Meta API error', details: message }),
 				{ status: 502, headers: { 'Content-Type': 'application/json' } }
 			);
 		}

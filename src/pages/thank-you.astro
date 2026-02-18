@@ -107,14 +107,17 @@ const testimonials = [
 			if (sessionStorage.getItem(key)) return;
 			sessionStorage.setItem(key, '1');
 			var eventId = 'capi-' + Date.now() + '-' + Math.random().toString(36).slice(2, 11);
-			fetch('/api/track-lead', {
+			var url = typeof location !== 'undefined' ? location.origin + '/api/track-lead' : '/api/track-lead';
+			fetch(url, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					eventID: eventId,
 					eventSourceUrl: typeof location !== 'undefined' ? location.href : ''
 				})
-			}).catch(function() {});
+			}).then(function(r) {
+				if (r.status !== 200) return r.json().then(function(d) { console.warn('CAPI track-lead:', r.status, d); });
+			}).catch(function(e) { console.warn('CAPI track-lead failed:', e); });
 		})();
 	</script>
 </Layout>
