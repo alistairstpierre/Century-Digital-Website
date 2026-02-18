@@ -5,7 +5,7 @@
  * Optional fields (add when available):
  * - phone: Contact phone number
  * - address: { streetAddress, addressLocality, addressRegion, postalCode }
- * - bookingUrl: Calendly/Cal.com etc. for "Book a Call"
+ * - bookingUrl: Lead Connector (or Calendly/Cal.com) for "Book a Call"
  * - sameAs: [ "https://linkedin.com/...", "https://facebook.com/..." ]
  * - logo: Uses /century-logo2.png
  */
@@ -14,7 +14,7 @@ export const siteUrl = 'https://centurydigital.net';
 
 export const organization = {
 	name: 'Century Digital',
-	description: 'Century Digital is an annuity leads provider offering annuity marketing and annuity pay per lead for Independent Producers and Financial Advisors. High-intent annuity leads that answer the phone. ISA team, sales coaching, exclusive leads.',
+	description: 'Century Digital gets Independent Producers and Financial Advisors consistent $100K+ annuity opportunities. AI annuity opportunity finder: age 55–77, $100K+ rollover‑eligible assets, verified real people, opt-in only. Exclusive daily prospects, state-matched. Built for top producers who contact leads fast.',
 	url: siteUrl,
 	logo: `${siteUrl}/century-logo2.png`,
 	email: 'support@centurydigital.net',
@@ -28,7 +28,8 @@ export const organization = {
 	},
 	// We operate in the US market (states listed for clarity)
 	areaServed: 'US',
-	// optional: phone, address, sameAs, bookingUrl
+	bookingUrl: 'https://api.leadconnectorhq.com/widget/booking/TkuYjNB6MiVU90uJMYJ4',
+	// optional: sameAs (social links)
 };
 
 // Key US states where annuities are commonly marketed/served (used for schema areaServed)
@@ -59,38 +60,42 @@ export const rating = {
 };
 
 export const services = [
-	'Annuity Marketing',
-	'Annuity Pay Per Lead',
-	'Annuity Leads',
-	'Social Media Advertising',
-	'Internal Sales Team (ISA)',
-	'Sales Coaching',
+	'AI Annuity Opportunity Finder',
+	'Qualified Annuity Prospects',
+	'Annuity Leads (55–77, $100K+ assets)',
+	'Verified & Opt-In Leads',
+	'State-Matched Exclusive Prospects',
+	'Triggered prospects (warmed up before you get them)',
 ];
 
 export const faq: { question: string; answer: string }[] = [
 	{
-		question: 'What makes you unique in a sea of insurance agencies?',
-		answer: 'Unlike all the "just call the leads more bro" agencies out there, we put our money where our mouth is. We empower producers to go deeper and get better at the number 1 skill that will make them more money—sales. Let us do the monkey work, you do the selling. We understand the trenches. We know about suitability, Reg 187, and the Best Interest Standard. We get that you\'re not just selling plans—you\'re writing contracts with carriers like Allianz, Athene, Jackson National, and Corebridge.',
+		question: 'How does the system work?',
+		answer: "It comes down to two things. One is AI: we've built an AI annuity opportunity finder that finds people age 55–77, near or at retirement, with $100K+ rollover‑eligible assets and a recent life event that's triggered them to think about annuities. Two is the market: more people moving into retirement, worried about volatility, wanting to roll assets into an annuity, the timing is right. We don't send you raw AI leads: we verify they're real people (OTP), get them to opt in and confirm assets and state, and we only send you prospects in the states you're licensed in. You get consistent qualified annuity prospects daily, exclusive to you.",
 	},
 	{
-		question: 'If the leads are so good, why don\'t you close them yourself?',
-		answer: "We do… a lot of them. Yes, we have partnerships with agencies that yield an extremely high return for us, and we just copy the same system into your business as well. We're producers too. We write FIAs, MYGAs, and understand the comp structure. We know what it's like to chase rates and navigate carrier relationships.",
+		question: 'Why is speed to lead so important?',
+		answer: "We're triggering these prospects to think about annuities. If you don't contact them as soon as possible, they'll go to someone else. So you have to be onto it, contact them quickly and consistently. We work with producers who do that.",
 	},
 	{
-		question: 'Are all the leads exclusive?',
-		answer: "100%. No other agency or producer will ever see your leads. These are YOUR leads. We understand the frustration of IMOs promising \"warm transfers\" but delivering Facebook leads from people who just wanted a free PDF. That's not us. Every lead is exclusive to you.",
+		question: 'Are all the prospects exclusive? Do you only send prospects in my licensed states?',
+		answer: "100% exclusive. No other agency or producer will ever see your prospects. And yes, we only send you prospects in the states you're licensed for. We check state as part of our opt-in process so you never get leads you can't work.",
 	},
 	{
-		question: "I'm a new producer. Should I use Century Digital?",
-		answer: "I'm going to shoot straight—there is a 90% churn in the life insurance industry within the first year. That means 90% of producers quit in the first 12 months BECAUSE they cannot solve this issue. Your time is best spent writing policies and getting paid. If you want to be like the 90% of producers that quit, then any other marketing agency will do you just fine. But if you want to be like our producers that are protecting hundreds of families every year, and getting paid big bucks to do it, then please book a call!",
+		question: 'Who are you looking to work with?',
+		answer: "We're looking for high-performing salespeople, or people who want to be. We can send you a lead, but if you're not contacting them quickly and consistently, you won't get the most out of these annuity opportunities. We want producers who are serious about working leads and who want to help people protect their assets.",
 	},
 	{
-		question: 'Which carriers do your leads typically work with?',
-		answer: 'Our contract owners are qualified for all major carriers. We work with producers writing paper with Allianz Life, Athene, Jackson National, Corebridge Financial, Nationwide, Prudential, F&G, North American, and MassMutual. Our leads understand the value of protecting their principal and are ready to have the conversation about FIAs, MYGAs, and the right chassis for their situation.',
+		question: "If the prospects are so good, why don't you close them yourself?",
+		answer: "We do, a lot of them. We have partnerships with agencies that yield an extremely high return, and we copy the same system into your business. We're producers too. We write FIAs, MYGAs, and understand the comp structure. The system works; we're just scaling it to more producers.",
+	},
+	{
+		question: 'Which carriers do your prospects typically work with?',
+		answer: 'Our prospects are qualified for all major carriers. We work with producers writing paper with Allianz Life, Athene, Jackson National, Corebridge Financial, Nationwide, Prudential, F&G, North American, and MassMutual. They have the assets and are ready to have the conversation about FIAs, MYGAs, and the right chassis for their situation.',
 	},
 	{
 		question: 'How do you handle suitability and compliance?',
-		answer: "We understand the pain point. Every producer is drowning in suitability paperwork. Our leads are pre-qualified and understand their situation. We don't send you leads that will get kicked back by compliance because the concentration is too high or the age doesn't match. We do the heavy lifting upfront so you can focus on writing paper, not fighting with carriers over suitability questionnaires.",
+		answer: "We do the heavy lifting upfront. Our prospects are pre-qualified, we confirm assets, retirement window, and state. We don't send you prospects that will get kicked back by compliance. You can focus on writing paper, not fighting with carriers over suitability questionnaires.",
 	},
 ];
 
@@ -122,7 +127,7 @@ export function buildOrganizationSchema() {
 			contactType: 'Sales',
 			email: organization.email,
 			telephone: organization.phone,
-			url: `${organization.url}/#contact`,
+			url: (organization as { bookingUrl?: string }).bookingUrl || `${organization.url}/#contact`,
 		},
 		aggregateRating: {
 			'@type': 'AggregateRating',
