@@ -9,6 +9,7 @@ Built with [Astro](https://astro.build), featuring a dark navy blue and black th
 ```
 /
 ├── public/                 # Static assets (favicons, images, etc.)
+│   └── testimonials/       # Annuity results testimonial screenshots used on main page and thank-you mosaic
 ├── src/
 │   ├── components/         # Reusable Astro components
 │   │   ├── Navigation.astro    # Main site navigation with mobile menu

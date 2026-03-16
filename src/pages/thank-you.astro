@@ -49,7 +49,7 @@ const testimonials = [
 	<main class="w-full bg-white px-4 sm:px-6 py-8">
 		<div class="section-inner flex flex-col gap-12 items-center">
 			<!-- Page header -->
-			<header class="text-center flex flex-col items-center gap-4 w-full max-w-3xl">
+			<header class="text-center flex flex-col items-center gap-4 w-full max-w-3xl pb-6">
 				<h1 class="text-4xl md:text-5xl font-bold text-gray-900">
 					How We Get You $100K+ Annuity Opportunities
 				</h1>
@@ -71,28 +71,58 @@ const testimonials = [
 				</div>
 			</div>
 
-			<!-- Testimonials -->
+			<!-- Testimonials mosaic -->
 			<section class="w-full max-w-6xl">
-				<div class="text-center flex flex-col items-center gap-4 mb-12">
+				<div class="text-center flex flex-col items-center gap-4 mb-16 pb-6">
 					<h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-						Producers Like You Are Already Winning
+						What Other Producers Are Seeing
 					</h2>
 					<p class="text-lg text-gray-600 max-w-2xl">
-						Here's the kind of paper they're writing with the same leads we're sending.
+						Screenshots from independent producers and advisors sharing the kinds of $100K+ annuity opportunities they are getting from Century Digital.
 					</p>
 				</div>
-				<div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{testimonials.map(({ quote, author }) => (
-						<div class="testimonial-box bg-gray-50 rounded-xl border border-[#93c5fd] hover:border-[#3b82f6] transition-all shadow-sm">
-							<div class="flex items-center mb-6">
-								<div class="text-yellow-500 text-xl">★★★★★</div>
-							</div>
-							<p class="text-gray-700 mb-6 italic leading-relaxed">
-								"{quote}"
-							</p>
-							<div class="text-[#1e40af] font-semibold text-base">{author}</div>
-						</div>
-					))}
+				<div
+					class="w-full columns-2 sm:columns-3 lg:columns-4 gap-5 md:gap-7"
+					style="margin-top: 2.5rem !important;"
+				>
+					{Array.from({ length: 20 }).map((_, index) => {
+						const num = String(index + 1).padStart(2, '0');
+						const src = `/testimonials/century-digital-annuity-testimonial-${num}.png`;
+						const alts = [
+							'Century Digital annuity testimonial screenshot from independent producer',
+							'Producer testimonial showing high-value annuity case closed from Century Digital lead',
+							'Advisor message confirming successful fixed indexed annuity sale with Century Digital',
+							'Century Digital testimonial screenshot featuring strong annuity premium and qualified lead',
+							'Retirement advisor feedback about easy annuity appointment and rollover-ready assets',
+							'Century Digital annuity lead testimonial showing booked appointments and closed cases',
+							'MDRT producer screenshot describing consistent annuity production with Century Digital',
+							'Testimonial mosaic tile with advisor confirming multiple annuity contracts closed',
+							'Century Digital review screenshot highlighting high-intent annuity prospects',
+							'Independent producer testimonial tile showing large annuity premium written',
+							'Screenshot of Century Digital client reporting strong annuity production month',
+							'Advisor message about writing multiple annuity policies from one Century Digital lead',
+							'Century Digital screenshot reflecting easy annuity appointment and fast close',
+							'Producer sharing feedback on qualified retirement prospects sourced by Century Digital',
+							'Annuity testimonial tile with advisor confirming rollover-ready retirement assets',
+							'Century Digital review screenshot showing strong commission from annuity case',
+							'Advisor feedback about multiple booked annuity appointments from Century Digital',
+							'Screenshot showing producer closing large fixed indexed annuity through Century Digital lead',
+							'Century Digital testimonial tile highlighting easy compliance-friendly annuity sales process',
+							'Producer review summarizing consistent high-premium annuity production with Century Digital'
+						];
+						const alt = alts[index] ?? 'Century Digital annuity testimonial screenshot from independent producer';
+						return (
+							<img
+								src={src}
+								alt={alt}
+								class="mb-12 w-full rounded-lg border border-[#93c5fd] shadow-sm break-inside-avoid"
+								style="margin-bottom: 3rem;"
+								loading="lazy"
+								width="800"
+								height="800"
+							/>
+						);
+					})}
 				</div>
 			</section>
 		</div>
